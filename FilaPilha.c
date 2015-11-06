@@ -30,6 +30,13 @@ void CriarPilhaVazia (TPilha P){
 	F->topo = 0
 }
 
+int VerificaFilaCheia(TFila F) {
+	return (((F.fim + 1) % max) == F.inicio);
+}
+
+int VerificaFilaVazia(TFila F){
+	return (F.fimj == F.inicio);
+}
 
 FilaEncInverterFila(TFila F){
 	TFila FA;
