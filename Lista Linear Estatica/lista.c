@@ -37,19 +37,22 @@ void Insere_Elemento_Lista(Lista_e *L, T_Pessoa X){
 		P = L->Prim;
 		while((P!=L->Ult)&&(X.cod>L->Elem[P].cod))
 			P++;
-		if ((P<L->Ult)&&(X.cod!=L->Elem[P].cod)) //insere no meio da lista{
+		if ((P<L->Ult)&&(X.cod!=L->Elem[P].cod)){ //insere no meio da lista{
 			for(A=L->Ult; A>P; A--)
 				L->Elem[A] = L->Elem[A-1];
-		L->Elem[P] = X;
-		L->Ult++;
-	}
-	else if (P == L->Ult) {
-		L->Elem[P]=X;
-		L->Ult++;
-	}
-	else {printf("Código já existe - Substituindo\n");
+			L->Elem[P] = X;
+			L->Ult++;
+		}
+		else if (P == L->Ult) {
+			L->Elem[P]=X;
+			L->Ult++;
+		}
+		else{
+		printf("Código já existe - Substituindo\n");
      	L->Elem[P] = X;
-    }
+    	}
+	}
+
 }
 
 
@@ -152,7 +155,7 @@ int n = 1;
 			getchar();
 			break;
 		}
-	system ("clear");
+		system ("clear");
 	}
 }
 			
@@ -172,35 +175,36 @@ int n = 1;
        scanf("%s", X->data_nasc);
    }
    
-void leArquivoLista(Lista_e *L, T_Pessoa *X){
-	File*arq;
+
+void leArquivoLista(Lista_e *L){
+	FILE*arq;
+	T_Pessoa X;
 	int n;
-	arq = fopen ("pessoas.txt", "r");
-	if (arq != null){
+	arq = fopen ("pessoas.txt", "rt");
+	if (arq != NULL){
 		fscanf (arq, "%d", &n);
-		while(n!= 0){
-			X->cod = n;
-			fgets(X->nome, 40, arq);
-			fscanf (arq, "%s", X->email );
-			fscanf (arq, "%s", X->tel);
-			fscanf (arq, "%s", X->data_nasc);
-			
-			Insere_Elemento_Lista (&L, X);
-			
+		while(n != 0){
+			X.cod = n;
+			fgets (X.nome, 40, arq);
+			fscanf (arq, "%s", X.email );
+			fscanf (arq, "%s", X.tel);
+			fscanf (arq, "%s", X.data_nasc);
+			Insere_Elemento_Lista(&L, X);	
 			fscanf (arq, "¨%d", &n);
 		}
 	}
 	else{
 		printf ("Lista não encontrada - Leitura...\n");
 	} 
+	fclose(arq);
 }
 
 void escreveArquivoLista(Lista_e L){
-	File*arq;
+	FILE*arq;
 	int p;
 	arq = fopen ("pessoas.txt", "w");
 	if (Verifica_Lista_Vazia(L)){
-		Fprintf("0\n")
+		Fprintf("0\n");
 	}
 	else{
 		for (p = L.Prim; p < L.Ult; p++){
@@ -212,6 +216,7 @@ void escreveArquivoLista(Lista_e L){
 		}
 		fprintf ("%d\n", 0);
 	}
+	fclose(arq);
 }
      
  void Menu()
@@ -274,7 +279,7 @@ int main()
 		            break;
 		   case 6: printf("Obrigado Por Usar nosso Progrma - ESS(R)\n");
 		            break;
-		   default: printf("Digite uma opÃ§Ã£o de 1 a 6 por favor \n");
+		   default: printf("Digite uma opção de 1 a 6 por favor \n");
 		             break;
 		  }
 	    printf("\nDigite algo pra continuar.....\n");
@@ -283,6 +288,6 @@ int main()
 	   
    } while(op!=6);
    
-   escreve arquivoLista(L);
+   escreveArquivoLista(L);
    return(0);
  }
