@@ -43,7 +43,7 @@ void Insere_Elemento_Lista(Lista_e *L, T_Pessoa X){
 		L->Elem[P] = X;
 		L->Ult++;
 	}
-	else if(P == L->Ult) {
+	else if (P == L->Ult) {
 		L->Elem[P]=X;
 		L->Ult++;
 	}
